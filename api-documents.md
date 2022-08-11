@@ -24,6 +24,7 @@ page|n|integer|页数|1|
 pageSize|n|integer|每页数量|20|
 startId|n|long|开始id||
 endId|n|long|结束id||
+userId|y|long|userId||
 
 
 
