@@ -301,3 +301,36 @@ liqudatePrice|y|string|强平价||
 size|y|string|强平价||
 brokerPrice|y|string|爆仓价||
 
+### 修改资金费率
+#### PUT /api/v1/perpetual/admin/{contractCode}/fee-rate
+
+请求参数：
+
+#### 请求参数：
+
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+value|y|doublue|资金费率值||绝对值<0.005
+
+##### 路径参数
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+contractCode|y|string|合约code||
+
+##### Query
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+AccessKeyId|y|string|访问key||
+SignatureVersion|y|string|版本||
+SignatureMethod|y|string|签名方法||HmacSHA256
+Signature|y|string|签名||
+Timestamp|y|string|时间戳||
+
+
+```json
+{
+    "code": 200,
+    "msg": "success"
+}
+
+```
