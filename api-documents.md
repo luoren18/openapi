@@ -475,3 +475,224 @@ currencyPairDTO|y|object|||
 --sort|n|integer|排序||
 --openTradeTime|n|string|开盘时间，格式为YYYY-MM-DD HH:MM:SS||
 --feeAccount|n|number|手续费账号，用于记录手续费收支的账户||
+
+
+
+### websocket订阅预订单
+
+#### 请求参数：
+##### Query
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+event|y|string|订阅的事件||
+params|y|object|订阅入参|||
+biz|y|string|业务参数||
+type|y|string|数据类型||
+zip|y|boolean|是否压缩||
+contractCode|y|string|合约代码||
+serialize|y|boolean|是否序列化||
+
+
+```json
+#订阅请求
+{
+    "event": "subscribe",
+    "params": {
+        "biz": "perpetual",
+        "type": "pre_order",
+        "zip": false,
+        "contractCode": "BTCUSDT",
+        "serialize": false
+    }
+}
+#订阅成功
+{
+    "biz": "perpetual",
+    "data": {
+        "result": true #订阅成功 ，false 为订阅失败
+    },
+    "channel": "subscribe",
+    "type": "pre_order",
+    "env": 0,
+    "contractCode": "BTCUSDT"
+}
+```
+#### 订阅推送数据
+| 序号  | 字段名                | 类型     | 是否必须 | 描述                 |
+|------|-----------------------|---------|---------|----------------------|
+| 1    | id                    | int64   | y       | 订单唯一标识符        |
+| 2    | contractCode          | string  | y       | 合约代码              |
+| 3    | contractDirection     | int32   | y       | 合约方向              |
+| 4    | base                  | string  | y       | 基础货币              |
+| 5    | quote                 | string  | y       | 计价货币名，USD,CNY,USDT|
+| 6    | userId                | int64   | y       | 用户ID               |
+| 7    | side                  | string  | y       | 仓位类型，long多，short空   |
+| 8    | detailSide            | string  | y       | 交易类型 1.开多open_long 2.开空open_short 3.平多close_long 4.平空close_short |
+| 9    | clazz                 | int32   | y       | 0:下单 1:撤单 |
+| 10   | mustMaker             | int32   | y       | 被动委托：0:不care 1:只做maker，如何是taker就撤单            |
+| 11   | amount                | string  | y       | 委托数量              |
+| 12   | price                 | string  | y       | 用户订单委托或者破产价格             |
+| 13   | avgPrice              | string  | y       | 平均成交价格             |
+| 14   | dealAmount            | string  | y       | 已成交数量            |
+| 15   | orderSize             | string  | y       | 订单大小              |
+| 16   | dealSize              | string  | y       | 已成交大小            |
+| 17   | openMargin            | string  | y       | 开仓保证金             |
+| 18   | extraMargin           | string  | y       | 额外价格偏移保证金             |
+| 19   | avgMargin             | string  | y       | 每张合约摊到的保证金             |
+| 20   | systemType            | int32   | y       | 10:限价 11:市价 13:强平单 14:爆仓单              |
+| 21   | profit                | string  | y       | 该笔订单成交后对应的盈亏: 正表示盈利,负表示亏损|
+| 22   | fee                   | string  | y       | 该笔订单成交后交的手续费: 正表示得手续费,负表示付手续费|
+| 23   | reason                | int32   | y       | 该笔订单取消的理由，0是默认值，没有理由 |
+| 24   | createdDate           | int64   | y       | 创建日期              |
+| 25   | triggerPrice          | string  | y       | 触发价格              |
+| 26   | indexBase             | string  | y       | 指数基准              |
+| 27   | direction             | int32   | y       | 方向                 |
+| 28   | stopLimitType         | int32   | y       | 止损类型               |
+| 29   | lever                 | int32   | y       | 杠杆                 |
+| 30   | orderPriceType        | int32   | y       | 订单价格类型            |
+| 31   | triggerBy             | string  | y       | 触发者                |
+| 32   | refConditionOrderId   | int64   | y       | 关联的条件单id          |
+| 33   | marginDigit           | int32   | y       | 保证金数字位            |
+| 34   | positionType          | int32   | y       | 0全仓, 1逐仓, 2未知֪               |
+| 35   | status                | int32   | y       |  等待成交 1 部分成交 2 已经成交 -1 已经撤销                |
+| 36   | stopLoss              | (message)| y       | 止损条件               |
+| 37   | stopProfit            | (message)| y       | 止盈条件               |
+| 38   | modifyDate            | int64   | y       | 修改日期               |
+| 42   | baseDisplayName       | string  | y       | 计价币转换成的名称       |
+| 43   | quoteDisplayName      | string  | y       | 计价币转换成的名称         |
+| 44   | contractCodeDisplayName | string | y       | 合约代码显示名称       |
+| 45   | indexBaseDisplayName  | string  | y       | 指数基准显示名称         |
+| 46   | env                   | int64   | y       | 环境                 |
+| 47   | dualPosition          | int32   | y       | 持仓模式，0-单向持仓/1-双向持仓            |
+| 48   | reduceOnly            | int32   | y       | 是否只减仓,0-否/1-是                |
+| 49   | orderType             | int32   | y       | 0：普通单，1：止盈止损，2：计划委托 |
+| 50   | growthType            | int32   | y       | 持仓增长类型：1：开仓单   2：平仓单   0：无法确定               |
+| 51   | brokerId              | int32   | y       | 经纪人ID              |
+| 52   | dealMarket            | int32   | y       | 成交市场               |
+| 53   | deductedFee           | string  | y       | 已减免手续费            |
+| 54   | mode                  | int32   | y       | 持仓模式  0：合仓  1：分仓                |
+| 56   | positionId            | int64   | y       | 持仓ID                |
+| 57   | traderNickname        | string  | y       | 交易员昵称              |
+| 58   | traderPhoto           | string  | y       | 交易员头像              |
+| 59   | isNftPhoto            | int32   | y       | 是否NFT头像            |
+| 60   | liquidatePrice        | string  | y       | 强平价格               |
+| 61   | orderFee              | string  | y       | 订单手续费              |
+| 62   | liquidationDate       | int64   | y       | 强平日期               |
+| 63   | contractType          | string  | y       | 合约类型               |
+| 64   | bizType               | string  | y       | 业务类型               |
+| 65   | ioc                   | int32   | y       | IOC (Immediately or Cancel) 订单若不能立即成交则未成交的部分立即取消。                  |
+
+
+```json
+#订阅响应数据
+{
+    "biz": "perpetual",
+    "data": {
+        "reason": 0,
+        "orderType": 0,
+        "contractType": "perpetual",
+        "fee": "0.000000",
+        "ratioDeductedFee": 0,
+        "quoteDisplayName": "USDT",
+        "liquidationDate": 1715415600000,
+        "matchStatus": 0,
+        "quote": "usdt",
+        "price": "0",
+        "indexBase": "btc",
+        "growthType": 0,
+        "dealAmount": "0",
+        "showAmount": 1.00000000000000000000000000000000,
+        "contractDirection": 0,
+        "deductedFee": 0,
+        "availableDeductedFee": 0,
+        "indexBaseDisplayName": "BTC",
+        "size": "0",
+        "reduceOnly": 0,
+        "unitAmount": 0.0010000000000000,
+        "orderFrom": 0,
+        "status": 0,
+        "brokerSize": 0,
+        "extraMargin": "0",
+        "bizType": "perpetual",
+        "avgPrice": "0.00",
+        "marginDigit": 6,
+        "orderFee": "0.000000",
+        "dualPosition": 1,
+        "relationOrderId": 0,
+        "baseDisplayName": "USDT",
+        "marketPriceDigit": 2,
+        "contractCodeDisplayName": "BTCUSDT",
+        "systemType": 11,
+        "dealMarket": 0,
+        "profit": "0.000000",
+        "avgFee": 0,
+        "amount": "1",
+        "brokerId": 1,
+        "side": "long",
+        "openMargin": "0",
+        "dealSize": "0",
+        "avgMargin": "0",
+        "env": 0,
+        "mustMaker": 0,
+        "userId": 100300231,
+        "detailSide": "open_long",
+        "createdDate": 1715407263681,
+        "ioc": 0,
+        "clazz": 0,
+        "contractCode": "btcusdt",
+        "base": "usdt"
+    },
+    "type": "pre_order",
+    "env": 0,
+    "contractCode": "btcusdt",
+    "timestamp": 1715407263882
+}
+```
+
+#### python demo 
+```python
+import websocket
+import json
+
+def on_message(ws, message):
+    print("Received message:", message)
+
+def on_error(ws, error):
+    print("Error:", error)
+
+def on_close(ws):
+    print("### Connection closed ###")
+
+def on_open(ws):
+    print("### Connection opened ###")
+    # 登录
+    login_data = {
+        "event": "signin",
+        "params": {
+            "token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJob3Rjb2luIiwidWlkIjoiRUwyK2FISXdPYXJJaXVLSlZEM01qZz09Iiwic291cmNlIjoiTlVqaUVWREJLRndnVVY4K3dQT1FLQT09IiwiaWF0IjoxNzE1MjE5MzkyLCJqdGkiOiI0NzkwNDI3Yy0wZDVmLTQ0NTMtODFhOS1kYzFiNThmYThiNTAiLCJpcCI6IjNRaDFPaVh6WVlYdXkwMnZWWGF5Unc9PSJ9.vhvov4ruhgXVslMvjjueHk3wXquAvLDnLxk9n9AfQ1Q$eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjZWM4ODNjMC1jYWM5LTRiYjEtODlkZS00NzYzZGQ0YzFhYWU0Nzk5OTA0MDEiLCJ1aWQiOiJFTDIrYUhJd09hcklpdUtKVkQzTWpnPT0iLCJpcCI6IjIvSkpaUU9RWXRkS3FIRU9vOFEwQXc9PSIsImRldiI6IkE4b0xOZVJWdkZHb3hMOVBaZWhrcEE9PSIsInN0cyI6MCwiaWF0IjoxNzE1MjE5MzkyLCJleHAiOjE3MTU4MjQxOTIsImlzcyI6Im5ld2V4In0.G18N5u4-uLDyQuNcT7hPgyS7je5PVC6hEfoQneEH3_Y"
+        }
+    }
+    ws.send(json.dumps(login_data))
+
+    # 订阅数据，需要是管理员id 才能订阅
+    subscribe_data = {
+        "event": "subscribe",
+        "params": {
+            "biz": "perpetual",
+            "type": "pre_order",
+            "zip": False,
+            "contractCode": "BTCUSDT",
+            "serialize": False
+        }
+    }
+    ws.send(json.dumps(subscribe_data))
+
+if __name__ == "__main__":
+    websocket.enableTrace(True)
+    ws = websocket.WebSocketApp("ws://127.0.0.1:8104/",
+                                on_open=on_open,
+                                on_message=on_message,
+                                on_error=on_error,
+                                on_close=on_close)
+    ws.run_forever()
+
