@@ -1,4 +1,91 @@
 
+### 持仓成交记录
+#### GET /api/v1/perpetual/position-deal-record
+
+请求参数：
+
+
+#### 请求参数：
+
+
+##### Query
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+AccessKeyId|y|string|访问key||
+SignatureVersion|y|string|版本||
+SignatureMethod|y|string|签名方法||HmacSHA256
+Signature|y|string|签名||
+Timestamp|y|string|时间戳||
+startDate|n|long|开始时间||
+endDate|n|long|结束时间||
+contractCode|n|string|合约code||
+page|n|integer|页数|1|
+pageSize|n|integer|每页数量|20|
+startId|n|long|开始id||
+endId|n|long|结束id||
+
+
+
+```json
+{
+    "code": 200,
+    "data": {
+        "data": [
+            {
+                "amount": "6.0000000000000000",
+                "contractCode": "btcusdt",
+                "contractCodeDisplayName":"btcusdt",
+                "createDate": "2021-11-14 20:52:03",
+                "currencyCode": "usdt",
+                "currencyCodeDisplayName":"usdt",
+                "dealType": 1,
+                "env":0,
+                "detailSide": "close_long",
+                "fee": "1.3579752900000000",
+                "id": "666746374653476864",
+                "makerTaker": "maker",
+                "orderId": 125090120907072,
+                "price": "64665.4900000000000000",
+                "profit": "0.9555748956901509",
+                "refOrderId": 125090122965326,
+                "size": "3879.9294000000000000",
+                "userId": "2000011"
+            }
+        ],
+        "pageNum": 1,
+        "pageSize": 20,
+        "totalCount": 112677
+    },
+    "msg": "success"
+}
+
+```
+
+#### 返回：
+
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+amount|y|string|成交数量||
+contractCode|y|string|合约code||
+contractCodeDisplayName|y|string|合约Code 显示名||
+createDate|y|string|创建时间||
+currencyCode|y|string|币种||
+currencyCodeDisplayName|y|string|币种显示名||
+dealType|y|string|成交类型，1：自成交，2：与其他用户成交||
+detailSide|y|string|开平方向||
+fee|y|string|手续费||
+id|y|long|成交记录id||
+makerTaker|y|string|maker or taker||
+orderId|y|long|订单id||
+price|y|string|成交价格||
+profit|y|string|收益||
+refOrderId|y|long|关联订单id||
+refUserId|y|long|关联uid||
+size|y|string|成交价值||
+userId|y|long|uid||
+env|y|int|0-实盘/1-模拟盘||
+
+
 
 ### 成交记录
 #### GET /api/v1/perpetual/admin/deal-record
