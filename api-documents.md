@@ -1,6 +1,6 @@
 
 ### 持仓成交记录
-#### GET /api/v1/perpetual/position-deal-record
+#### GET /api/v1/perpetual/admin/position-deal-record
 
 请求参数：
 
