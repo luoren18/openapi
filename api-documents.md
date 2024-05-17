@@ -397,7 +397,7 @@ brokerPrice|y|string|爆仓价||
 
 参数名称|是否必须|类型|描述|默认值|取值范围
 ------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
-value|y|doublue|资金费率值||绝对值<0.005
+value|y|doublue|资金费率值||绝对值<=0.005
 
 ##### 路径参数
 参数名称|是否必须|类型|描述|默认值|取值范围
@@ -421,6 +421,233 @@ Timestamp|y|string|时间戳||
 }
 
 ```
+
+### 订单详情
+#### GET /api/v1/perpetual/admin/{contractCode}/order/detail
+
+请求参数：
+
+##### 路径参数
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+contractCode|y|string|合约code||
+
+##### Body参数
+
+```json
+
+[3273522336695136]
+
+```
+
+##### curl试例
+
+```json
+
+curl -X 'GET'  -H 'content-type: application/json;charset=UTF-8' -d '[3273522336695136]' 'http://127.0.0.1:7001/api/v1/perpetual/admin/btcusdt/order/detail'
+
+```
+
+#### 请求参数：
+
+
+##### Query
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+AccessKeyId|y|string|访问key||
+SignatureVersion|y|string|版本||
+SignatureMethod|y|string|签名方法||HmacSHA256
+Signature|y|string|签名||
+Timestamp|y|string|时间戳||
+
+
+
+```json
+{
+   "code":200,
+   "data":{
+      "3273522336695136":{
+         "avgPrice":"60244.08",
+         "brokerId":1,
+         "contractCode":"btcusdt",
+         "contractCodeDisplayName":"BTCUSDT",
+         "createdDate":1714535947303,
+         "dealAmount":"101",
+         "detailSide":"close_long",
+         "details":[
+            {
+               "afterBalance":"9858807.554537613421965795015",
+               "afterLongPosition":"4056",
+               "afterShortPosition":"101",
+               "beforeBalance":"9859072.819397879121176795015",
+               "beforeLongPosition":"4157",
+               "beforeShortPosition":"101",
+               "createdDate":1714535947855,
+               "dealAmount":"101",
+               "dealPrice":"60244.08",
+               "makerTaker":2,
+               "oppositeOrder":null,
+               "referId":3273522336695136,
+               "userId":23900378
+            }
+         ],
+         "dualPosition":1,
+         "env":0,
+         "fee":"0",
+         "lever":20,
+         "orderAmount":"101",
+         "orderFrom":10,
+         "orderId":3273522336695136,
+         "positionType":0,
+         "price":"60244.08",
+         "profit":"-265.264860265699211",
+         "reason":0,
+         "reduceOnly":1,
+         "selectedMode":0,
+         "status":2,
+         "systemType":10,
+         "userId":23900378
+      }
+   },
+   "msg":"success"
+}
+
+```
+
+#### 返回：
+
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+avgPrice|y|string|平均价格||
+brokerId|y|string|||
+contractCode|y|string|合约code||
+contractCodeDisplayName|n|string|合约名称||
+createDate|y|string|创建时间||
+dealAmount|y|string|成交数量||
+detailSide|y|string|开平方向||
+dualPosition|y|int|持仓模式，0:单向 1:双向||
+env|y|int|环境，0:实盘 1:模拟盘||
+fee|y|string|手续费||
+lever|y|int|杠杆倍数||
+orderAmount|n|string|成交数量||
+orderFrom|n|int|成交数量||
+orderId|n|long|订单ID||
+positionType|y|int|仓位类别||
+price|y|string|成交价格||
+profit|y|string|收益||
+reason|y|int|原因 OrderReasonEnum||
+reduceOnly|y|int|只减仓||
+selectedMode|y|int|持仓模式 0：合仓 1：分仓||
+status|y|string|状态 0:未成交 1:部分成交 2:全部成交 -1:已撤单||
+systemType|y|int|类型||
+userId|y|long|userId||
+
+
+
+### 资金费用明细
+#### GET /api/v1/perpetual/admin/fee-rate/bills
+
+请求参数：
+
+
+#### 请求参数：
+
+
+##### Query
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+AccessKeyId|y|string|访问key||
+SignatureVersion|y|string|版本||
+SignatureMethod|y|string|签名方法||HmacSHA256
+Signature|y|string|签名||
+Timestamp|y|string|时间戳||
+startDate|n|long|开始时间||
+endDate|n|long|结束时间||
+contractCode|n|string|合约code||
+page|n|integer|页数|1|
+pageSize|n|integer|每页数量|20|
+userId|n|long|用户id||
+
+
+
+```json
+{
+    "bills": [
+        {
+            "amount": "0",
+            "balance": "144044.48",
+            "bizType": "",
+            "brokerId": 0,
+            "contractCode": "btcusdt",
+            "contractType": "",
+            "createdDate": 1713399624888,
+            "currencyCode": "usdt",
+            "currencyCodeDisplayName": "USDT",
+            "currencyPairDTO": null,
+            "dealMarket": 0,
+            "deductedFee": "0.000000",
+            "detailSide": "long",
+            "dualPosition": 1,
+            "env": 0,
+            "fee": "0.000000",
+            "feeCurrencyCode": "",
+            "lever": 0,
+            "liquidationDate": 0,
+            "makerTaker": 0,
+            "marginDigit": 0,
+            "positionType": 0,
+            "price": "0.00",
+            "profit": "-0.21",
+            "referId": 0,
+            "selectedMode": 0,
+            "size": "0",
+            "type": 19,
+            "typeDesc": "结算/资金费用"
+        }
+    ],
+    "paginate": {
+        "page": 1,
+        "pageSize": 5,
+        "total": 48,
+        "totalPage": 10
+    },
+    "total": ""
+}
+
+```
+
+#### 返回：
+
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+amount|y|string|成交数量||
+balance|y|string|余额||
+bizType|n|string|||
+brokerId|y|string|||
+contractCode|y|string|合约code||
+contractType|n|string|合约类型||
+createDate|y|string|创建时间||
+currencyCode|y|string|币种||
+currencyCodeDisplayName|y|string|币种显示名||
+dealMarket|y|int|成交类型，0：普通单 1：带单 2：跟单||
+deductedFee|y|string|手续费减免||
+detailSide|y|string|开平方向||
+dualPosition|y|int|持仓模式，0:单向 1:双向||
+env|y|int|环境，0:实盘 1:模拟盘||
+fee|y|string|手续费||
+feeCurrency|n|string|手续费单位||
+lever|y|int|杠杆倍数||
+liquidationDate|n|long|清算时间||
+makerTaker|int|int|maker or taker||
+marginDigit|y|int|||
+positionType|y|int|仓位类别||
+price|y|string|成交价格||
+profit|y|string|收益||
+referId|y|long|账单关联uid||
+size|y|string|成交价值||
+type|y|int|账单类型||
+typeDesc|y|string|类型描述||
+
 
 
 
