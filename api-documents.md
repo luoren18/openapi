@@ -650,6 +650,188 @@ typeDesc|y|string|类型描述||
 
 
 
+### 查询当前委托
+#### GET /api/v1/perpetual/admin/{contractCode}/list
+
+#### 请求参数：
+
+
+##### Query
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+AccessKeyId|y|string|访问key||
+SignatureVersion|y|string|版本||
+SignatureMethod|y|string|签名方法||HmacSHA256
+Signature|y|string|签名||
+Timestamp|y|string|时间戳||
+contractCode|n|string|合约code||
+userId|n|long|用户ID||
+orderId|n|long|订单ID||
+
+
+```json
+[
+    {
+        "allType": 0,
+        "amount": "30",
+        "avgPrice": "0",
+        "base": "usdt",
+        "baseDisplayName": "USDT",
+        "beforeClosePositionPrice": "",
+        "bizType": "",
+        "brokerId": 0,
+        "contractCode": "btcusdt",
+        "contractCodeDisplayName": "BTCUSDT",
+        "contractDirection": 0,
+        "contractType": "",
+        "createdDate": 1717408344000,
+        "dealAmount": "0",
+        "dealMarket": 0,
+        "deductedFee": "",
+        "detailSide": "open_long",
+        "direction": "",
+        "dualPosition": 0,
+        "env": 0,
+        "fastTradeTime": 0,
+        "fee": "0",
+        "growthType": 0,
+        "id": 3320583687832704,
+        "indexBase": "btc",
+        "indexBaseDisplayName": "BTC",
+        "ioc": 0,
+        "isNftPhoto": 0,
+        "lever": "75",
+        "liquidatePrice": "",
+        "liquidationDate": 0,
+        "marginDigit": 0,
+        "marketPriceDigit": 0,
+        "merge": 0,
+        "mergeId": 0,
+        "mode": 0,
+        "modifyDate": 0,
+        "mustMaker": 0,
+        "openMargin": "",
+        "orderFee": "",
+        "orderPriceType": 0,
+        "orderSize": "150",
+        "orderType": 0,
+        "positionId": 0,
+        "positionType": 0,
+        "price": "5000",
+        "profit": "0",
+        "quote": "usdt",
+        "quoteDisplayName": "USDT",
+        "reason": 0,
+        "reduceOnly": 0,
+        "refConditionOrderId": 0,
+        "refOrderCondition": null,
+        "refUserId": 0,
+        "selectedMode": 0,
+        "side": "long",
+        "sortDate": 0,
+        "source": "",
+        "status": 0,
+        "stopLimitType": "",
+        "stopLoss": null,
+        "stopProfit": null,
+        "systemType": 10,
+        "tag": "",
+        "tracingCallback": "",
+        "tracingDirection": "",
+        "tracingOrderPriceType": 0,
+        "tracingPrice": "",
+        "traderNickname": "",
+        "traderPhoto": "",
+        "triggerBy": "",
+        "triggerDate": 0,
+        "triggerPrice": "",
+        "unitAmount": "",
+        "userId": 0
+    }
+]
+
+```
+
+#### 返回：
+
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+allType|y|string|0: 部分  1：全部||
+amount|y|string|委托数量||
+avgPrice|y|string|平均价格||
+base|y|string|基础货币名||
+baseDisplayName|y|string|基础货币显示名||
+contractCode|y|string|合约code||
+contractCodeDisplayName|y|string|合约Code 显示名||
+contractDirection|y|string|方向 0:正向,1:反向||
+contractType|y|string|合约类型，永续-perpetual、 交割-deliver 、当周交割-week、次周交割-nextweek、当季交割-quarter、次季交割-nextquarter||
+createDate|y|string|创建时间||
+currencyCode|y|string|币种||
+currencyCodeDisplayName|y|string|币种显示名||
+dealAmount|y|string|已成交数量||
+dealMarket|y|string|0：普通单   1：带单   2：跟单||
+deductedFee|y|string|已抵扣的手续费用||
+detailSide|y|string|开平方向||
+direction|y|string|触发方向，greater大于，less小于||
+dualPosition|y|string|持仓模式，0-单向持仓/1-双向持仓||
+env|y|string|0-实盘/1-模拟盘，默认0||
+fastTradeTime|y|string|首比成交时间||
+fee|y|string|手续费||
+growthType|y|string|持仓增长类型：1：开仓单   2：平仓单   0：无法确定||
+id|y|long|成交记录id||
+indexBase|y|string|指数货币||
+baseDisplayName|y|string|基础货币前端显示名||
+ioc|y|string|0: 关闭，1: 开启, 2: fok||
+isNftPhoto|y|string|是否为nft头像||
+lever|y|string|杠杆||
+liquidatePrice|y|string|强平价||
+liquidationDate|y|string|强平时间||
+marginDigit|y|string|保证金小数位||
+marketPriceDigit|y|string|标记价格小数位||
+merge|y|string| ||
+mergeId|y|string| ||
+mode|y|string|持仓模式  0：合仓  1：分仓||
+mustMaker|y|string|被动委托  0:否 1:是||
+modifyDate|y|string|最后操作时间||
+openMargin|y|string| ||
+orderFee|y|string|手续费||
+orderPriceType|y|string|20 最优20档/10 最优10档/5 最优5档/1 对手价||
+orderSize|y|string|委托价值||
+orderType|y|string|订单类型 0：普通单，1：止盈止损，2：计划委托||
+positionId|y|string|仓位ID||
+positionType|y|string|持仓类型||
+price|y|string|委托价格||
+profit|y|string|该笔订单成交后对应的盈亏: 正表示盈利,负表示亏损||
+quote|y|string|计价货币名，usd,cny,usdt||
+quoteDisplayName|y|string|计价货币前端显示名||
+reason|y|string|该笔订单取消的理由，0是默认值，1 系统撤销，2 用户取消 其他-委托失败||
+reduceOnly|y|string|是否只减仓 0-否/1-是||
+refConditionOrderId|y|string|关联的条件订单id||
+refOrderCondition|y|string|关联条件单||
+refUserId|y|string|关联用户ID||
+selectedMode|y|string| ||
+side|y|long|仓位方向，long多，short空||
+sortDate|y|long|||
+source|y|long|来源||
+status|y|long|0 等待成交 1 部分成交 2 已经成交 -1 已经撤销||
+stopLimitType|y|long|条件单类型  0 -止盈 1-止损 2-计划委托||
+stopLoss|y|long|关联止损单||
+stopProfit|y|long|关联止盈单||
+systemType|y|long|10:限价 11:市价 13:强平单 14:爆仓单 15：穿仓 16：强减||
+tag|y|long| ||
+tracingCallback|y|long|跟踪委托回调幅度||
+tracingDirection|y|long|跟踪委托触发方向||
+tracingOrderPriceType|y|long|跟踪委托下单价格类型||
+tracingPrice|y|long|跟踪委托激活价格||
+traderNickname|y|long|带单员昵称||
+traderPhoto|y|long|带单员头像||
+triggerBy|y|long|计划委托类型: index-指数价格market/mark-标记价格mark/last-最新价格last||
+triggerDate|y|long|触发时间||
+triggerPrice|y|long|触发价格||
+unitAmount|y|long|一张合约对应的quote面值,默认1||
+userId|y|long|uid||
+
+
 
 ### 保证金账户查询
 #### GET  /api/v1/perpetual/admin/insurance-account/bills
