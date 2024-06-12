@@ -1,5 +1,32 @@
 
 ### 持仓成交记录
+#### GET /api/v1/perpetual/admin/filters
+
+请求参数：
+
+
+#### 请求参数：
+
+
+##### Query
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+AccessKeyId|y|string|访问key||
+SignatureVersion|y|string|版本||
+SignatureMethod|y|string|签名方法||HmacSHA256
+Signature|y|string|签名||
+Timestamp|y|string|时间戳||
+
+
+
+#### 返回：
+
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+uid|y|long|uid||
+
+
+### 持仓成交记录
 #### GET /api/v1/perpetual/admin/position-deal-record
 
 请求参数：
@@ -84,6 +111,12 @@ refUserId|y|long|关联uid||
 size|y|string|成交价值||
 userId|y|long|uid||
 env|y|int|0-实盘/1-模拟盘||
+beforePrice|y|string|开仓前持仓价格||
+afterPrice|y|string|开仓后持仓价格||
+beforeAmount|y|int|开仓前数量||
+afterAmount|y|int|开仓后数量||
+adjustmentType|y|int|31：开仓，32：减仓，33：增仓，34：平仓，35：先平后开，37：合仓，38：合仓结果，39：交割||
+billType|y|int|15：多，16：空，22：强平||
 
 
 
