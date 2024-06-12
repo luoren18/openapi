@@ -2,8 +2,6 @@
 ### 过滤id
 #### GET /api/v1/perpetual/admin/filters
 
-请求参数：
-
 
 #### 请求参数：
 
