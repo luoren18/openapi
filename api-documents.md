@@ -622,6 +622,7 @@ userId|n|long|用户id||
             "env": 0,
             "fee": "0.000000",
             "feeCurrencyCode": "",
+            "id": 123456789,
             "lever": 0,
             "liquidationDate": 0,
             "makerTaker": 0,
@@ -667,6 +668,7 @@ dualPosition|y|int|持仓模式，0:单向 1:双向||
 env|y|int|环境，0:实盘 1:模拟盘||
 fee|y|string|手续费||
 feeCurrency|n|string|手续费单位||
+id|n|long|bill ID||
 lever|y|int|杠杆倍数||
 liquidationDate|n|long|清算时间||
 makerTaker|int|int|maker or taker||
