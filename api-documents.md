@@ -723,7 +723,6 @@ orderId|n|long|订单ID||
         "direction": "",
         "dualPosition": 0,
         "env": 0,
-        "fastTradeTime": 0,
         "fee": "0",
         "growthType": 0,
         "id": 3320583687832704,
@@ -796,9 +795,7 @@ contractCode|y|string|合约code||
 contractCodeDisplayName|y|string|合约Code 显示名||
 contractDirection|y|string|方向 0:正向,1:反向||
 contractType|y|string|合约类型，永续-perpetual、 交割-deliver 、当周交割-week、次周交割-nextweek、当季交割-quarter、次季交割-nextquarter||
-createDate|y|string|创建时间||
-currencyCode|y|string|币种||
-currencyCodeDisplayName|y|string|币种显示名||
+createdDate|y|string|创建时间||
 dealAmount|y|string|已成交数量||
 dealMarket|y|string|0：普通单   1：带单   2：跟单||
 deductedFee|y|string|已抵扣的手续费用||
@@ -806,7 +803,6 @@ detailSide|y|string|开平方向||
 direction|y|string|触发方向，greater大于，less小于||
 dualPosition|y|string|持仓模式，0-单向持仓/1-双向持仓||
 env|y|string|0-实盘/1-模拟盘，默认0||
-fastTradeTime|y|string|首比成交时间||
 fee|y|string|手续费||
 growthType|y|string|持仓增长类型：1：开仓单   2：平仓单   0：无法确定||
 id|y|long|成交记录id||
