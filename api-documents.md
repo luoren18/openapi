@@ -1003,7 +1003,6 @@ currencyPairDTO|y|object|||
 --feeAccount|n|number|手续费账号，用于记录手续费收支的账户||
 
 
-
 ### websocket订阅预订单
 
 #### 请求参数：
@@ -1173,6 +1172,37 @@ serialize|y|boolean|是否序列化||
     "contractCode": "btcusdt",
     "timestamp": 1715407263882
 }
+```
+
+
+### wss订阅用户仓位 /admin_position
+
+#### 请求参数：
+
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+biz|y|string|业务||
+type|y|string|类型||
+zip|y|string|是否压缩||
+
+```json
+
+{
+  "event":"subscribe",
+  "params": {
+    "biz":"perpetual",
+    "type":"admin_position",
+    "zip": false
+  }
+}
+
+```
+
+#### 返回结果
+```json
+
+{"biz":"perpetual","data":{"result":true},"channel":"subscribe","type":"admin_position"}
+
 ```
 
 #### python demo 
