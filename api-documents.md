@@ -1183,6 +1183,8 @@ serialize|y|boolean|是否序列化||
 ------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
 biz|y|string|业务||
 type|y|string|类型||
+base|n|string|基础币，如：usdt、btc||
+contractCode|n|string|合约code||
 zip|y|string|是否压缩||
 
 ```json
